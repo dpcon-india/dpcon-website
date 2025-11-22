@@ -34,9 +34,9 @@ export default function Header() {
             <Link href="/services" className="hover:underline underline-offset-4 transition-all">
               Services
             </Link>
-            <a href="#" className="hover:underline underline-offset-4 transition-all">
+            <Link href="/about" className="hover:underline underline-offset-4 transition-all">
               About
-            </a>
+            </Link>
             <a href="#" className="hover:underline underline-offset-4 transition-all">
               Contact
             </a>
@@ -108,9 +108,9 @@ export default function Header() {
               <Link href="/services" className="text-sm font-light hover:text-gray-600 transition-colors">
                 Services
               </Link>
-              <a href="#" className="text-sm font-light hover:text-gray-600 transition-colors">
+              <Link href="/about" className="text-sm font-light hover:text-gray-600 transition-colors">
                 About
-              </a>
+              </Link>
               <a href="#" className="text-sm font-light hover:text-gray-600 transition-colors">
                 Contact
               </a>

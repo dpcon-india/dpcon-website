@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { useBookAppointmentMutation, usePayAndBookMutation, useVerifyPaymentMutation } from '../redux-toolkit/services/bookingApi';
 import { selectCurrentUser } from '../redux-toolkit/features/authSlice';
 import { BOOKING_CONFIG, getBookingType } from '../utils/bookingConfig';
+import Input from './Input';
+import Button from './Button';
 
 export default function EstimateForm({ isOpen, onClose, service }) {
   const user = useSelector(selectCurrentUser);
@@ -66,98 +68,85 @@ export default function EstimateForm({ isOpen, onClose, service }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4">
-      <div className="bg-white max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="border-b border-gray-200 p-6">
+    <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-2 sm:p-4 backdrop-blur-sm">
+      <div className="bg-white max-w-md w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl transform transition-all duration-300 scale-100">
+        <div className="border-b border-gray-200 p-4 sm:p-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-light tracking-wide">Get Free Estimate</h2>
+            <h2 className="text-lg sm:text-xl font-light tracking-wide">Get Free Estimate</h2>
             <button onClick={onClose} className="text-gray-500 hover:text-black text-2xl">&times;</button>
           </div>
           <p className="text-xs text-gray-500 mt-2">{service?.serviceTitle}</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name *</label>
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black"
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+          <Input
+            label="Name *"
+            id="name"
+            name="name"
+            type="text"
+            required
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+
+          <Input
+            label="Email *"
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+
+          <Input
+            label="Phone"
+            id="phone"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          />
+
+          <Input
+            label="Preferred Date *"
+            id="date"
+            name="date"
+            type="date"
+            required
+            value={formData.date}
+            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+            min={new Date().toISOString().split('T')[0]}
+          />
+
+          <Input
+            label="Preferred Time *"
+            id="time"
+            name="time"
+            type="time"
+            required
+            value={formData.time}
+            onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+          />
 
           <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email *</label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Phone</label>
-            <input
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Preferred Date *</label>
-            <input
-              type="date"
-              required
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              min={new Date().toISOString().split('T')[0]}
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Preferred Time *</label>
-            <input
-              type="time"
-              required
-              value={formData.time}
-              onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Additional Details</label>
+            <label className="block text-sm font-medium text-[#333333] mb-2">Additional Details</label>
             <textarea
               value={formData.serviceDetails}
               onChange={(e) => setFormData({ ...formData, serviceDetails: e.target.value })}
               rows="3"
-              className="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-black resize-none"
+              className="w-full border border-gray-200 px-4 py-3 text-sm focus:border-[#00296b] focus:ring-1 focus:ring-[#00296b] resize-none"
               placeholder="Any specific requirements..."
             />
           </div>
 
-          <div className="flex gap-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 border border-gray-300 py-3 text-xs uppercase tracking-widest hover:bg-gray-50 transition-colors"
-            >
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+            <Button type="button" onClick={onClose} variant="secondary">
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isLoading || isPaymentLoading}
-              className="flex-1 bg-black text-white py-3 text-xs uppercase tracking-widest hover:bg-gray-800 transition-colors disabled:opacity-50"
-            >
+            </Button>
+            <Button type="submit" disabled={isLoading || isPaymentLoading}>
               {(isLoading || isPaymentLoading) ? 'Booking...' : 'Book Estimate'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

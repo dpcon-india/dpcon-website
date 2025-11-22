@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useChangePasswordMutation } from '../redux-toolkit/services/authApi';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 export default function ChangePassword() {
   const router = useRouter();
@@ -38,19 +40,19 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="bg-white">
-      <div className="border-b border-gray-200 py-6">
-        <div className="max-w-7xl mx-auto px-8">
-          <h1 className="text-3xl font-light tracking-wide text-black mb-2">CHANGE PASSWORD</h1>
-          <p className="text-xs text-gray-500 font-light">Update your password</p>
+    <div className="bg-white min-h-screen">
+      <div className="border-b border-gray-200 py-4 sm:py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <h1 className="text-2xl sm:text-3xl font-light tracking-wide text-black mb-2">CHANGE PASSWORD</h1>
+          <p className="text-[10px] sm:text-xs text-gray-500 font-light">Update your password</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-10">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-10">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
           <div className="max-w-md">
-            <div className="mb-6">
-              <Link href="/profile" className="text-sm text-black hover:text-gray-600 font-medium">
+            <div className="mb-4 sm:mb-6">
+              <Link href="/profile" className="text-xs sm:text-sm text-black hover:text-gray-600 font-medium">
                 ← Back to Profile
               </Link>
             </div>
@@ -66,60 +68,41 @@ export default function ChangePassword() {
                     {error?.data?.message || 'Failed to change password. Please try again.'}
                   </div>
                 )}
-                <div className="bg-gray-50 p-2 rounded-lg">
-                  <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                    Current Password
-                  </label>
-                  <input
-                    id="currentPassword"
-                    name="currentPassword"
-                    type="password"
-                    required
-                    value={formData.currentPassword}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-3 bg-white border border-gray-300 rounded-md text-gray-900 text-base font-medium focus:border-black focus:ring-2 focus:ring-black"
-                  />
-                </div>
-                <div className="bg-gray-50 p-2 rounded-lg">
-                  <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                    New Password
-                  </label>
-                  <input
-                    id="newPassword"
-                    name="newPassword"
-                    type="password"
-                    required
-                    value={formData.newPassword}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-3 bg-white border border-gray-300 rounded-md text-gray-900 text-base font-medium focus:border-black focus:ring-2 focus:ring-black"
-                  />
-                </div>
-                <div className="bg-gray-50 p-2 rounded-lg">
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                    Confirm New Password
-                  </label>
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    required
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="block w-full px-4 py-3 bg-white border border-gray-300 rounded-md text-gray-900 text-base font-medium focus:border-black focus:ring-2 focus:ring-black"
-                  />
-                </div>
+                <Input
+                  label="Current Password"
+                  id="currentPassword"
+                  name="currentPassword"
+                  type="password"
+                  required
+                  value={formData.currentPassword}
+                  onChange={handleChange}
+                />
+                <Input
+                  label="New Password"
+                  id="newPassword"
+                  name="newPassword"
+                  type="password"
+                  required
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                />
+                <Input
+                  label="Confirm New Password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
 
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-black text-white px-8 py-3 text-xs uppercase tracking-widest font-medium hover:bg-gray-800 transition-all disabled:opacity-50 cursor-pointer"
-                >
+                <Button type="submit" disabled={isLoading}>
                   {isLoading ? 'Changing...' : 'Change Password'}
-                </button>
+                </Button>
               </form>
             )}
           </div>
-          <div className="hidden md:block h-full">
+          <div className="h-32 sm:h-40 md:h-full">
             <div className="h-full bg-gradient-to-br from-gray-200 to-gray-300" />
           </div>
         </div>

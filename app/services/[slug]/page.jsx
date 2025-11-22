@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import EstimateForm from '../../components/EstimateForm';
+import Button from '../../components/Button';
 
 export default function ServiceDetailPage() {
   const params = useParams();
@@ -48,16 +49,17 @@ export default function ServiceDetailPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="border-b border-gray-200 py-8">
-        <div className="max-w-7xl mx-auto px-8">
-          <Link href="/services" className="text-xs uppercase tracking-widest text-gray-500 hover:text-black transition-colors inline-flex items-center gap-2">
-            ← Back to Services
+      <div className="border-b border-gray-100 py-6">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <Link href="/services" className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-all duration-200 group">
+            <span className="text-lg group-hover:-translate-x-1 transition-transform duration-200">←</span>
+            <span className="font-medium">Back to Services</span>
           </Link>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
           <div>
             <div className="relative aspect-square mb-4 overflow-hidden">
               <Image
@@ -69,7 +71,7 @@ export default function ServiceDetailPage() {
             </div>
 
             {service?.gallery?.length > 0 && (
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {service.gallery.map((img, index) => (
                   <div key={index} className="relative aspect-square overflow-hidden">
                     <Image src={img} alt={`Gallery ${index + 1}`} fill className="object-cover hover:scale-105 transition-transform duration-500" />
@@ -80,8 +82,8 @@ export default function ServiceDetailPage() {
           </div>
 
           <div>
-            <h1 className="text-4xl font-light tracking-wide text-black mb-6">{service?.serviceTitle}</h1>
-            <p className="text-sm text-gray-600 leading-relaxed mb-8">{service?.description}</p>
+            <h1 className="text-2xl md:text-4xl font-light tracking-wide text-black mb-4 md:mb-6">{service?.serviceTitle}</h1>
+            <p className="text-sm text-gray-600 leading-relaxed mb-6 md:mb-8">{service?.description}</p>
 
             {service?.categories?.length > 0 && (
               <div className="mb-8 pb-8 border-b border-gray-200">
@@ -97,9 +99,9 @@ export default function ServiceDetailPage() {
             )}
 
             {service?.price > 0 && (
-              <div className="mb-8 pb-8 border-b border-gray-200">
+              <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-gray-200">
                 <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">Price</h3>
-                <p className="text-3xl font-light tracking-wide text-black">₹{service.price}</p>
+                <p className="text-2xl md:text-3xl font-light tracking-wide text-black">₹{service.price}</p>
                 {service?.duration && <p className="text-xs text-gray-500 mt-2">Duration: {service.duration}</p>}
               </div>
             )}
@@ -163,22 +165,19 @@ export default function ServiceDetailPage() {
               </div>
             )}
 
-            <div className="flex gap-3">
-              <button className="flex-1 bg-black text-white py-4 px-8 text-xs uppercase tracking-widest hover:bg-gray-800 transition-colors">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button>
                 Book This Service
-              </button>
-              <button 
-                onClick={() => setIsEstimateFormOpen(true)}
-                className="flex-1 border-2 border-black text-black py-4 px-8 text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-              >
+              </Button>
+              <Button onClick={() => setIsEstimateFormOpen(true)} variant="secondary">
                 Get Free Estimate
-              </button>
+              </Button>
             </div>
           </div>
         </div>
       </div>
 
-      <EstimateForm 
+      <EstimateForm
         isOpen={isEstimateFormOpen}
         onClose={() => setIsEstimateFormOpen(false)}
         service={service}
