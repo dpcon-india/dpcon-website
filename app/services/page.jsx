@@ -67,7 +67,6 @@ export default function ServicesPage() {
             Filters {isFilterOpen ? '▲' : '▼'}
           </button>
         </div>
-
         <div className="flex flex-col lg:flex-row">
           <div className={`${isFilterOpen ? 'block' : 'hidden'} lg:block`}>
             <ServiceFilter
